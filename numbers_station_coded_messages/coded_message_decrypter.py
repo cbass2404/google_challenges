@@ -54,23 +54,26 @@ Output:
 
 
 def solution(l, t):
-    if len(l) in range(1, 101) and t in range(1, 251):
+    if len(l) in range(1, 101) and t in range(1, 251) and len(l) > 0:
         if type(l[0]) is int:
             for i in l:
-                for n in range(i + 1, len(l) - 1):
-                    if l[i] + l[n] == t and i <= n:
-                        return [i, n]
-        if len(l[0]) >= 1:
-            for a in l:
-                for i in a:
-                    for n in range(i + 1, len(a)):
-                        if a[i] + a[n] == t and i <= n:
+                if i in range(1, 101):
+                    for n in range(i, len(l) - 1):
+                        if l[i] + l[n] == t and i <= n:
                             return [i, n]
+        if type(l[0]) != int and len(l[0]) > 0:
+            for a in l:
+                if len(a) in range(1, 101):
+                    for i in a:
+                        for n in range(i, len(a)):
+                            if a[i] + a[n] == t and i <= n:
+                                return [i, n]
     return [-1, -1]
 
 
 print(solution([1, 2, 3, 4], 15))  # should return -1,-1
 print(solution([4, 3, 10, 2, 8], 12))  # should return 2,3
-print(solution([[1, 2, 3, 4], [4, 3, 10, 2, 8]], 13))
-print(solution([[1, 2], [], [1, 6, 2, 3], [0, 1, 3, 0]], 0))
-print(solution([1, 2, 3], 6))
+print(solution([[1, 2, 3, 4], [4, 3, 10, 2, 8]], 13))  # should return 1,2
+print(solution([[1, 2], [], [1, 6, 2, 3], [0, 1, 3, 0]], 3))  # should return 0,1
+print(solution([[1, 6, 2, 3], [], [1, 2], [0, 1, 3, 0]], 3))  # should return 0,2
+print(solution([1, 2, 3], 6))  # should return -1,-1
